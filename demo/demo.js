@@ -84,6 +84,7 @@ function initPlayers() {
         screenshot: true,
         airplay: true,
         hotkey: true,
+        totalDuration: 500,
         logo: 'https://i.loli.net/2019/06/06/5cf8c5d94521136430.png',
         volume: 0.2,
         mutex: true,

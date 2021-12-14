@@ -36,6 +36,14 @@ class Controller {
         }
     }
 
+    duration() {
+        if (this.player.options.totalDuration) {
+            return this.player.options.totalDuration
+        } else {
+            return this.player.video.duration
+        }
+    }
+
     initPlayButton() {
         this.player.template.playButton.addEventListener('click', () => {
             this.player.toggle();
@@ -106,7 +114,7 @@ class Controller {
             percentage = Math.max(percentage, 0);
             percentage = Math.min(percentage, 1);
             this.player.bar.set('played', percentage, 'width');
-            this.player.template.ptime.innerHTML = utils.secondToTime(percentage * this.player.video.duration);
+            this.player.template.ptime.innerHTML = utils.secondToTime(percentage * this.duration());
         };
 
         const thumbUp = (e) => {
@@ -116,7 +124,7 @@ class Controller {
             percentage = Math.max(percentage, 0);
             percentage = Math.min(percentage, 1);
             this.player.bar.set('played', percentage, 'width');
-            this.player.seek(this.player.bar.get('played') * this.player.video.duration);
+            this.player.seek(this.player.bar.get('played') * this.duration());
             this.player.timer.enable('progress');
         };
 
@@ -133,7 +141,7 @@ class Controller {
                 if (tx < 0 || tx > this.player.template.playedBarWrap.offsetWidth) {
                     return;
                 }
-                const time = this.player.video.duration * (tx / this.player.template.playedBarWrap.offsetWidth);
+                const time = this.duration() * (tx / this.player.template.playedBarWrap.offsetWidth);
                 if (utils.isMobile) {
                     this.thumbnails && this.thumbnails.show();
                 }

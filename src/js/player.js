@@ -152,6 +152,14 @@ class DPlayer {
         instances.push(this);
     }
 
+    duration() {
+        if (this.options.totalDuration) {
+            return this.options.totalDuration
+        } else {
+            return this.video.duration
+        }
+    }
+
     /**
      * Seek video
      */
@@ -457,7 +465,7 @@ class DPlayer {
         this.on('durationchange', () => {
             // compatibility: Android browsers will output 1 or Infinity at first
             if (video.duration !== 1 && video.duration !== Infinity) {
-                this.template.dtime.innerHTML = utils.secondToTime(video.duration);
+                this.template.dtime.innerHTML = utils.secondToTime(this.duration());
             }
         });
 
@@ -503,8 +511,9 @@ class DPlayer {
         });
 
         this.on('timeupdate', () => {
-            this.bar.set('played', this.video.currentTime / this.video.duration, 'width');
+            this.bar.set('played', this.video.currentTime / this.duration(), 'width');
             const currentTime = utils.secondToTime(this.video.currentTime);
+            console.log(currentTime)
             if (this.template.ptime.innerHTML !== currentTime) {
                 this.template.ptime.innerHTML = currentTime;
             }
