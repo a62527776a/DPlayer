@@ -80,7 +80,7 @@ function initPlayers() {
         preload: 'none',
         autoplay: false,
         theme: '#FADFA3',
-        loop: true,
+        loop: false,
         screenshot: true,
         airplay: true,
         hotkey: true,

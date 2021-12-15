@@ -38,9 +38,9 @@ class Controller {
 
     duration() {
         if (this.player.options.totalDuration) {
-            return this.player.options.totalDuration
+            return this.player.options.totalDuration;
         } else {
-            return this.player.video.duration
+            return this.player.video.duration;
         }
     }
 

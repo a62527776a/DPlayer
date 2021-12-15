@@ -154,9 +154,9 @@ class DPlayer {
 
     duration() {
         if (this.options.totalDuration) {
-            return this.options.totalDuration
+            return this.options.totalDuration;
         } else {
-            return this.video.duration
+            return this.video.duration;
         }
     }
 
@@ -180,7 +180,7 @@ class DPlayer {
             this.danmaku.seek();
         }
 
-        this.bar.set('played', time / this.video.duration, 'width');
+        this.bar.set('played', time / this.duration(), 'width');
         this.template.ptime.innerHTML = utils.secondToTime(time);
     }
 
@@ -486,7 +486,9 @@ class DPlayer {
 
         // video end
         this.on('ended', () => {
-            this.bar.set('played', 1, 'width');
+            if (!this.options.totalDuration) {
+                this.bar.set('played', 1, 'width');
+            }
             if (!this.setting.loop) {
                 this.pause();
             } else {
@@ -513,7 +515,7 @@ class DPlayer {
         this.on('timeupdate', () => {
             this.bar.set('played', this.video.currentTime / this.duration(), 'width');
             const currentTime = utils.secondToTime(this.video.currentTime);
-            console.log(currentTime)
+            console.log(currentTime);
             if (this.template.ptime.innerHTML !== currentTime) {
                 this.template.ptime.innerHTML = currentTime;
             }
